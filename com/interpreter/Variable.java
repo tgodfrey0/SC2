@@ -28,6 +28,7 @@ public class Variable {
 
     public void decrement(){
         this.value--;
+        if(this.value < 0) this.value = 0;
     }
 
     public void clear(){
