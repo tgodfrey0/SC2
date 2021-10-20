@@ -1,0 +1,13 @@
+incr a;
+incr b;
+incr b;
+incr b;
+incr c;
+while c not 0 do;
+    incr a;
+    decr b;
+    decr c;
+end;
+while a not 0 do;
+    decr a;
+end;
