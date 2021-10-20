@@ -8,10 +8,9 @@
 package com.interpreter;
 
 import java.awt.FileDialog;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 
 public class Main {
@@ -35,7 +34,10 @@ public class Main {
         String path = location + filename;
         System.out.println(path);
         Interpreter interpreter = new Interpreter();
-        String[] data = interpreter.preprocessFile(path);
+        ArrayList<ArrayList<String>> words = interpreter.preprocessFile(path);
+        /*for(int i = 0; i < words.size(); i++){
+            System.out.println(words.get(i));
+        }*/
     }
     
 }

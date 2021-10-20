@@ -7,11 +7,12 @@
 
 package com.interpreter;
 
-import java.awt.FileDialog;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Interpreter {
     /**
@@ -20,7 +21,7 @@ public class Interpreter {
      * @return data A string array is returned
      * @throws IOException
      */
-    public String[] preprocessFile(String path) throws IOException {
+    public ArrayList<ArrayList<String>> preprocessFile(String path) throws IOException {
         FileReader fileReader = new FileReader(new File(path));
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         StringBuffer stringBuffer = new StringBuffer();
@@ -31,8 +32,21 @@ public class Interpreter {
         }
         fileReader.close();
         String dataString = stringBuffer.toString();
-        String[] data;
-        data = (dataString.replaceAll("[\\\r\\\n]+","")).split(";");
-        return data;
+        ArrayList<String> data;
+        data = new ArrayList<String>(Arrays.asList((dataString.replaceAll("[\\\r\\\n\\\t]+","")).split(";")));
+        ArrayList<ArrayList<String>> words = new ArrayList<>();
+        for(int i = 0; i < data.size(); i++){
+            words.add(new ArrayList<String>(Arrays.asList((data.get(i)).split(" "))));
+        }
+        for(int i = 0; i < words.size(); i++){
+            for(int j = 0; j < words.get(i).size(); j++){
+                String word = words.get(i).get(j);
+                word = word.replaceAll(" ", "");
+                System.out.println(word);
+                if(word.length() == 0) words.get(i).remove(j);
+            } // IT DOESNT FUCKING WORK FIX IT
+        }
+        return words;
     }
+ 
 }
