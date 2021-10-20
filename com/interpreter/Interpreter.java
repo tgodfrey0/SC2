@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 
 public class Interpreter {
     /**
@@ -39,12 +40,19 @@ public class Interpreter {
             words.add(new ArrayList<String>(Arrays.asList((data.get(i)).split(" "))));
         }
         for(int i = 0; i < words.size(); i++){
-            for(int j = 0; j < words.get(i).size(); j++){
+            /*for(int j = 0; j < words.get(i).size(); j++){
                 String word = words.get(i).get(j);
                 word = word.replaceAll(" ", "");
-                System.out.println(word);
-                if(word.length() == 0) words.get(i).remove(j);
-            } // IT DOESNT FUCKING WORK FIX IT
+                if(word.length() == 0) (words.get(i)).remove(new String(""));
+            } // IT DOESNT FUCKING WORK FIX IT*/
+
+            Iterator<String> iterator = (words.get(i)).iterator();
+            while(iterator.hasNext()){
+                String s = iterator.next();
+                if(s.length() == 0){
+                    iterator.remove();
+                }
+            }
         }
         return words;
     }

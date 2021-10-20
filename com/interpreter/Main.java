@@ -35,9 +35,9 @@ public class Main {
         System.out.println(path);
         Interpreter interpreter = new Interpreter();
         ArrayList<ArrayList<String>> words = interpreter.preprocessFile(path);
-        /*for(int i = 0; i < words.size(); i++){
+        for(int i = 0; i < words.size(); i++){
             System.out.println(words.get(i));
-        }*/
+        }
     }
     
 }
