@@ -38,48 +38,7 @@ public class Main {
         System.out.println(path);
         Interpreter interpreter = new Interpreter();
         ArrayList<ArrayList<String>> words = interpreter.preprocessFile(path);
-        HashMap<String, Variable> variables = new HashMap<>();
-        for(int i = 0; i < words.size(); i++){
-            System.out.println(words.get(i));
-            String operation = (words.get(i)).get(0);
-            if(operation.equals("clear") || operation.equals("incr") || operation.equals("decr")){
-                String operand = (words.get(i)).get(1);
-                Variable var = variables.get(operand);
-                if(operation.equals("clear")){
-                    if(var == null){
-                        var = new Variable(0);
-                        variables.put(operand, var);
-                    } else {
-                        var.setValue(0);
-                        variables.put(operand, var);
-                    }
-                    System.out.println(operand + var.getValue());
-                }
-                else if(operation.equals("incr")){
-                    if(var == null){
-                        var = new Variable(0);
-                        var.increment();
-                        variables.put(operand, var);
-                    } else {
-                        var.increment();
-                        variables.put(operand, var);
-                    }
-                    System.out.println(operand + var.getValue());
-                }
-                else if(operation.equals("decr")){
-                    if(var == null){
-                        var = new Variable(0);
-                        var.decrement();
-                        variables.put(operand, var);
-                    } else {
-                        var.decrement();
-                        variables.put(operand, var);
-                    }
-                    System.out.println(operand + var.getValue());
-                }  
-                System.out.println(variables);
-            }
-        }
+        interpreter.interpret(words);
     }
     
 }
