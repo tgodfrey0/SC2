@@ -10,11 +10,7 @@ package com.interpreter;
 import java.awt.FileDialog;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.swing.JFrame;
-import javax.xml.catalog.Catalog;
 
 public class Main {
     /**

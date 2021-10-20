@@ -54,6 +54,8 @@ public class Interpreter {
 
     public void interpret(ArrayList<ArrayList<String>> words){
         HashMap<String, Variable> variables = new HashMap<>();
+        int loopIndex = -1;
+        boolean loop = false;
         for(int i = 0; i < words.size(); i++){
             System.out.println(words.get(i));
             String operation = (words.get(i)).get(0);
@@ -66,7 +68,7 @@ public class Interpreter {
                         variables.put(operand, var);
                     } else {
                         var.setValue(0);
-                        variables.put(operand, var);
+                        //variables.put(operand, var);
                     }
                     System.out.println(operand + " = " + var.getValue());
                 }
@@ -77,7 +79,6 @@ public class Interpreter {
                         variables.put(operand, var);
                     } else {
                         var.increment();
-                        variables.put(operand, var);
                     }
                     System.out.println(operand + " = " + var.getValue());
                 }
@@ -88,12 +89,31 @@ public class Interpreter {
                         variables.put(operand, var);
                     } else {
                         var.decrement();
-                        variables.put(operand, var);
                     }
                     System.out.println(operand + " = " + var.getValue());
                 }  
             } else if(operation.equals("while")){
-                
+                loopIndex = i;
+                String operand = (words.get(i)).get(1);
+                Variable var = variables.get(operand);
+                if(var == null){
+                    var = new Variable(0);
+                    variables.put(operand, var);
+                }
+                if(var.getValue() == 0){
+                    for(int k = i; k < words.size(); k++){
+                        if(words.get(k).get(0).equals("end")){
+                            i = k;
+                            System.out.println("End Index: " + i);
+                        }
+                    }
+                }
+                System.out.println(operand + " = " + var.getValue());
+            } else if(operation.equals("end")){
+                Variable loopedVariable = variables.get(words.get(loopIndex).get(1));
+                if(loopedVariable.getValue() != 0){
+                    i = loopIndex;
+                }
             }
         }
     }
