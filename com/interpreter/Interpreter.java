@@ -40,12 +40,6 @@ public class Interpreter {
             words.add(new ArrayList<String>(Arrays.asList((data.get(i)).split(" "))));
         }
         for(int i = 0; i < words.size(); i++){
-            /*for(int j = 0; j < words.get(i).size(); j++){
-                String word = words.get(i).get(j);
-                word = word.replaceAll(" ", "");
-                if(word.length() == 0) (words.get(i)).remove(new String(""));
-            } // IT DOESNT FUCKING WORK FIX IT*/
-
             Iterator<String> iterator = (words.get(i)).iterator();
             while(iterator.hasNext()){
                 String s = iterator.next();
