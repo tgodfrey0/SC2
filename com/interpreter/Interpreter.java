@@ -55,7 +55,6 @@ public class Interpreter {
     public void interpret(ArrayList<ArrayList<String>> words){
         HashMap<String, Variable> variables = new HashMap<>();
         int loopIndex = -1;
-        boolean loop = false;
         for(int i = 0; i < words.size(); i++){
             System.out.println(words.get(i));
             String operation = (words.get(i)).get(0);
