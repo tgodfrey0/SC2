@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Stack;
 
 public class Interpreter {
     /**
@@ -54,9 +55,10 @@ public class Interpreter {
 
     public void interpret(ArrayList<ArrayList<String>> words){
         HashMap<String, Variable> variables = new HashMap<>();
-        int loopIndex = -1;
+        Stack<Integer> loopIndexes = new Stack<>();
         for(int i = 0; i < words.size(); i++){
-            System.out.println(words.get(i));
+            int lineNum = i+1;
+            System.out.println("Line " + lineNum + ": " + words.get(i));
             String operation = (words.get(i)).get(0);
             if(operation.equals("clear") || operation.equals("incr") || operation.equals("decr")){
                 String operand = (words.get(i)).get(1);
@@ -92,7 +94,7 @@ public class Interpreter {
                     System.out.println(operand + " = " + var.getValue());
                 }  
             } else if(operation.equals("while")){
-                loopIndex = i;
+                loopIndexes.push(Integer.valueOf(i));
                 String operand = (words.get(i)).get(1);
                 Variable var = variables.get(operand);
                 if(var == null){
@@ -109,9 +111,13 @@ public class Interpreter {
                 }
                 System.out.println(operand + " = " + var.getValue());
             } else if(operation.equals("end")){
+                int loopIndex = loopIndexes.peek();
                 Variable loopedVariable = variables.get(words.get(loopIndex).get(1));
                 if(loopedVariable.getValue() != 0){
                     i = loopIndex;
+                    continue;
+                } else{
+                    loopIndexes.pop();
                 }
             }
         }
