@@ -53,6 +53,10 @@ public class Interpreter {
         return words;
     }
 
+    /**
+     * The interpret method contains all the functionality to actually parse the Bare Bones data.
+     * @param words This is an 2D ArrayList of every word in the file.
+     */
     public void interpret(ArrayList<ArrayList<String>> words){
         HashMap<String, Variable> variables = new HashMap<>();
         Stack<Integer> loopIndexes = new Stack<>();
@@ -94,7 +98,6 @@ public class Interpreter {
                     System.out.println(operand + " = " + var.getValue());
                 }  
             } else if(operation.equals("while")){
-                loopIndexes.push(Integer.valueOf(i));
                 String operand = (words.get(i)).get(1);
                 Variable var = variables.get(operand);
                 if(var == null){
@@ -106,7 +109,15 @@ public class Interpreter {
                         if(words.get(k).get(0).equals("end")){
                             i = k;
                             System.out.println("End Index: " + i);
+                            break;
                         }
+                    }
+                } else {
+                    System.out.println("Set" + i);
+                    if(loopIndexes.isEmpty()){
+                        loopIndexes.push(Integer.valueOf(i));
+                    } else if(!(loopIndexes.peek().equals(Integer.valueOf(i)))){
+                        loopIndexes.push(Integer.valueOf(i));
                     }
                 }
                 System.out.println(operand + " = " + var.getValue());
@@ -114,7 +125,8 @@ public class Interpreter {
                 int loopIndex = loopIndexes.peek();
                 Variable loopedVariable = variables.get(words.get(loopIndex).get(1));
                 if(loopedVariable.getValue() != 0){
-                    i = loopIndex;
+                    i = loopIndex-1;
+                    System.out.println("Go to" + (i+1));
                     continue;
                 } else{
                     loopIndexes.pop();
