@@ -1,5 +1,7 @@
 package com.interpreter;
-
+/**
+ * The variable class is an object to store all the data and methods about the Bare Bones variables.
+ */
 public class Variable {
 
     private int value;

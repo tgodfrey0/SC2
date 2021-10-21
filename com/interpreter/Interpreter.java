@@ -64,6 +64,9 @@ public class Interpreter {
             int lineNum = i+1;
             System.out.println("Line " + lineNum + ": " + words.get(i));
             String operation = (words.get(i)).get(0);
+            /**
+             * This if statement checks if the operation is one of those which edits the variable.
+             */
             if(operation.equals("clear") || operation.equals("incr") || operation.equals("decr")){
                 String operand = (words.get(i)).get(1);
                 Variable var = variables.get(operand);
@@ -97,7 +100,11 @@ public class Interpreter {
                     }
                     System.out.println(operand + " = " + var.getValue());
                 }  
-            } else if(operation.equals("while")){
+            } 
+            /**
+             * If it is a while statement, The variable object is fetched/created, then if it already satisfies the while loop condition the ned end statement is found and the interpreter skips to this line. If the condition is not met, then the index of the while condition is pushed to a stack object.
+             */
+            else if(operation.equals("while")){
                 String operand = (words.get(i)).get(1);
                 Variable var = variables.get(operand);
                 if(var == null){
@@ -121,12 +128,15 @@ public class Interpreter {
                     }
                 }
                 System.out.println(operand + " = " + var.getValue());
-            } else if(operation.equals("end")){
+            } 
+            /**
+             * If the operation is a end statement, the variable gets the location of the loop condition from the stack then either jumps there, or ends the loop if the condition is satisfied.
+             */
+            else if(operation.equals("end")){
                 int loopIndex = loopIndexes.peek();
                 Variable loopedVariable = variables.get(words.get(loopIndex).get(1));
                 if(loopedVariable.getValue() != 0){
                     i = loopIndex-1;
-                    System.out.println("Go to" + (i+1));
                     continue;
                 } else{
                     loopIndexes.pop();
